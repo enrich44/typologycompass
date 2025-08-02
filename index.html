@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typology Compass</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5c2e3a;
+            --secondary-color: #2a1a28;
+            --accent-color: #8b4513;
+            --light-color: #d8c7b8;
+            --dark-color: #1a0f12;
+            --highlight-color: #9e2b2b;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            --transition: all 0.4s ease;
+            --parchment: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="1" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.3" fill="%23d8c7b8"/></svg>');
+        }
+        
+        body {
+            font-family: 'MedievalSharp', cursive;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 69, 19, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 69, 19, 0.2) 0%, transparent 20%),
+                var(--parchment);
+            letter-spacing: 0.5px;
+        }
+        
+        h1 {
+            color: var(--highlight-color);
+            text-align: center;
+            margin: 30px 0;
+            font-weight: 700;
+            font-size: 3.5rem;
+            font-family: 'UnifrakturMaguntia', cursive;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .intro {
+            background-color: rgba(42, 26, 40, 0.8);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            background-color: rgba(42, 26, 40, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--accent-color);
+            position: relative;
+        }
+        
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+        }
+        
+        .question-text {
+            padding: 25px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--light-color);
+            background-color: rgba(92, 46, 58, 0.3);
+            border-bottom: 1px solid var(--accent-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: rgba(42, 26, 40, 0.6);
+        }
+        
+        .option {
+            text-align: center;
+            width: 18%;
+            position: relative;
+        }
+        
+        .option input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .option label {
+            display: block;
+            padding: 10px 5px;
+            border-radius: 5px;
+            background-color: rgba(26, 15, 18, 0.7);
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--light-color);
+            border: 1px solid var(--accent-color);
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+        }
+        
+        .option input[type="radio"]:checked + label {
+            background-color: var(--highlight-color);
+            color: #fff;
+            border-color: var(--highlight-color);
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(158, 43, 43, 0.6);
+        }
+        
+        .option input[type="radio"]:hover + label {
+            background-color: rgba(92, 46, 58, 0.6);
+        }
+        
+        .option input[type="radio"]:checked:hover + label {
+            background-color: #b83232;
+        }
+        
+        #submit {
+            background: linear-gradient(to bottom, var(--highlight-color), #7a1e1e);
+            color: #fff;
+            padding: 18px 35px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.3rem;
+            margin: 40px auto;
+            display: block;
+            transition: var(--transition);
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            font-family: 'Cinzel Decorative', serif;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            border: 1px solid #5c1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #submit:hover {
+            background: linear-gradient(to bottom, #b83232, #6a1818);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
+        }
+        
+        #submit:active {
+            transform: translateY(1px);
+        }
+        
+        #submit::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            z-index: 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        #submit:hover::before {
+            opacity: 1;
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        #results {
+            display: none;
+            margin-top: 40px;
+            background-color: rgba(42, 26, 40, 0.9);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.8s ease-out;
+            border: 1px solid var(--accent-color);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        #compass {
+            width: 400px;
+            height: 400px;
+            margin: 30px auto;
+            position: relative;
+            background-image: url('https://i.imgur.com/AqxpiUe.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(158, 43, 43, 0.4);
+            border: 2px solid var(--accent-color);
+        }
+        
+        #point {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at center, var(--highlight-color) 0%, #5c1a1a 100%);
+            border-radius: 50%;
+            border: 2px solid #d8c7b8;
+            box-shadow: 0 0 15px rgba(158, 43, 43, 0.8);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 10;
+        }
+        
+        .coordinates {
+            text-align: center;
+            margin: 25px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--highlight-color);
+            background-color: rgba(26, 15, 18, 0.7);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .description {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(42, 26, 40, 0.7);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--highlight-color);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+        
+        .description::before {
+            content: "✧";
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            font-size: 2rem;
+            color: var(--highlight-color);
+            opacity: 0.6;
+        }
+        
+        .description::after {
+            content: "✧";
+            position: absolute;
+            bottom: -15px;
+            right: -10px;
+            font-size: 2rem;
+            color: var(--highlight-color);
+            opacity: 0.6;
+        }
+        
+        .description strong {
+            color: var(--highlight-color);
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: var(--highlight-color);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2.2rem;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            #compass {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .options {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .option {
+                width: 48%;
+            }
+            
+            .question-text {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Progress indicator */
+        .progress-container {
+            width: 100%;
+            background-color: rgba(26, 15, 18, 0.7);
+            border-radius: 20px;
+            margin: 25px 0;
+            height: 12px;
+            display: none;
+            border: 1px solid var(--accent-color);
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(to right, var(--highlight-color), #7a1e1e);
+            width: 0%;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 10px rgba(158, 43, 43, 0.6);
+        }
+        
+        /* Question counter */
+        .question-counter {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: var(--highlight-color);
+            display: none;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark-color);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--highlight-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b83232;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vampire Typology Compass</h1>
+    
+    <div class="intro">
+        <p>V1.2 of the Typology Compass made by Enrich. More question shall be added in the future</p>
+    </div>
+    
+    <div class="question-counter" id="question-counter">Inquiry 1 of 50</div>
+    <div class="progress-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div id="questions">
+        <!-- Questions will be inserted here by JavaScript -->
+    </div>
+    
+    <button id="submit">Reveal My Alignment</button>
+    
+    <div id="results">
+        <h2>Your Esoteric Alignment</h2>
+        <div id="compass">
+            <div id="point"></div>
+        </div>
+        <div class="coordinates">
+            Arcane Coordinates: <span id="position-text">(0, 0)</span>
+        </div>
+        <div class="description" id="result-description">
+            <!-- Description will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // All questions with their axis and scoring
+        const questions = [
+            // Science (negative) vs Pseudoscience (positive) questions
+            { text: "I trust my gut more than empirical data", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Astrology or personality types like MBTI often reveal hidden truths", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Typology is irrelevant and has no practical use", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "I feel more connected to ancient wisdom than modern science", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Typology can be used in solving mental problems", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I use typology to assume people personality and core essence", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I dont care what experts say, typology is scientific", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "People that are evil and i dont like have specific placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "It is rude to type someone in enneagram, as you are assuming someones 'trauma'", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Empirical psychology is too shallow to explain people the way typology can", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "If I can predict someone's behavior through typology, it proves it works", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Typology is mostly self-projection, not science", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "I base my typing on energy, not behavior", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Typology should be used when attacking someone personally", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "If i we're a judge i would use someone's typology system to judge them", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I date,or make friends based on their placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "If a theory can't be tested or falsified, it isn't scientific", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Extraordinary claims require extraordinary evidence", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Typology is only for fun", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "People that take typology in serious are losers", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Typology lacks standardized definitions, making it unreliable as science", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "If it helps people, that makes it valid.", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Only BIG 5 is a valid scientific system", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "I wish everyone knew typology so we could type eachother", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Judging people based on their typology makes sense", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I feel disgusted by some people placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            
+            // Dogmatic (positive) vs Pragmatic (negative) questions
+            { text: "Contradictions do not exist", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Typology has clear correlations that need to be respected", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I am ok with the old school contradictions and correlations", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "When someone's typology contradicts i feel like i need to point it out", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Being too rigid in beliefs can lead to failure", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "SCS has no contradictions", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Enneagram has no contradictions", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "PY has no contradictions", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "I only follow Naranjo's school with no exception", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Adapting beliefs to real-life evidence is a mark of maturity", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "There are fixed laws to how the world and people work", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "It makes me mad when someone's typology contradicts", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Most of typology is open to interpretation", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "If someone is LSI in Socionics they must be a ISTP in MBTI", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "16 personalities is overhated", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "MBTI is overhated and its cool", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "I dont like it when people type my favourite characters differently", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "If i typed a character,its hard to change my opinion on its type", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "I'd rather be effective than ideologically consistent", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "If someone types themselves differently than I do, one of us must be wrong", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "Systems like MBTI and Enneagram have true forms that shouldn't be mixed", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "People who don't know the theory deeply shouldn't argue types", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] },
+            { text: "The value of a system is in how well it helps, not in how rigidly it's followed", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Interpretation is part of the typology process, not a flaw in it", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Even 'incorrect' typings can be insightful in some context", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
+            { text: "Only certified experts should be allowed to type people professionally", axis: "dogmatic", direction: 1, weights: [-2, -1, 0, 1, 2] }
+        ];
+
+        // Initialize the questions
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionsContainer = document.getElementById('questions');
+            
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${question.text}</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q${index}-1" name="q${index}" value="1" required>
+                            <label for="q${index}-1">Strongly<br>Disagree</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}-2" name="q${index}" value="2">
+                            <label for="q${index}-2">Disagree</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}-3" name="q${index}" value="3">
+                            <label for="q${index}-3">Neutral</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}-4" name="q${index}" value="4">
+                            <label for="q${index}-4">Agree</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}-5" name="q${index}" value="5">
+                            <label for="q${index}-5">Strongly<br>Agree</label>
+                        </div>
+                    </div>
+                `;
+                questionsContainer.appendChild(questionDiv);
+            });
+            
+            // Handle form submission
+            document.getElementById('submit').addEventListener('click', calculateResults);
+            
+            // Show progress if many questions
+            if (questions.length > 10) {
+                document.getElementById('progress-container').style.display = 'block';
+                document.getElementById('question-counter').style.display = 'block';
+                updateProgress();
+                
+                // Update progress when answers change
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', updateProgress);
+                });
+            }
+        });
+
+        function updateProgress() {
+            const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+            const total = questions.length;
+            const percentage = (answered / total) * 100;
+            
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('question-counter').textContent = `Inquiry ${answered} of ${total}`;
+        }
+
+        function calculateResults() {
+            // Check if all questions are answered
+            const unanswered = document.querySelectorAll('div.question:not(:has(input:checked))');
+            if (unanswered.length > 0) {
+                alert(`The ritual requires complete participation. You have ${unanswered.length} unanswered inquiries.`);
+                unanswered[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                unanswered[0].style.backgroundColor = 'rgba(158, 43, 43, 0.3)';
+                setTimeout(() => {
+                    unanswered[0].style.backgroundColor = 'rgba(42, 26, 40, 0.8)';
+                }, 2000);
+                return;
+            }
+
+            let scienceScore = 0;
+            let dogmaticScore = 0;
+            let scienceCount = 0;
+            let dogmaticCount = 0;
+            
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption) {
+                    const value = parseInt(selectedOption.value);
+                    const weight = question.weights[value - 1];
+                    
+                    if (question.axis === "science") {
+                        scienceScore += weight;
+                        scienceCount++;
+                    } else {
+                        dogmaticScore += weight;
+                        dogmaticCount++;
+                    }
+                }
+            });
+            
+            // Calculate average scores (-100 to 100 range)
+            const scienceAverage = (scienceCount > 0) ? (scienceScore / scienceCount) * 20 : 0;
+            const dogmaticAverage = (dogmaticCount > 0) ? (dogmaticScore / dogmaticCount) * 20 : 0;
+            
+            // Display results
+            showResults(scienceAverage, dogmaticAverage);
+        }
+
+        function showResults(science, dogmatic) {
+            // Normalize to compass coordinates (0-400px)
+            const compassWidth = 400;
+            const compassHeight = 400;
+            
+            // Convert scores to pixels (0-400 range)
+            // Science: -100 (left) to 100 (right)
+            // Dogmatic: -100 (bottom) to 100 (top)
+            const xPos = ((science + 100) / 200) * compassWidth;
+            const yPos = compassHeight - ((dogmatic + 100) / 200) * compassHeight;
+            
+            // Move the point with animation
+            const point = document.getElementById('point');
+            point.style.left = `${xPos}px`;
+            point.style.top = `${yPos}px`;
+            
+            // Update position text
+            document.getElementById('position-text').textContent = 
+                `Science-Pseudoscience: ${science.toFixed(1)}, Dogmatic-Pragmatic: ${dogmatic.toFixed(1)}`;
+            
+            // Generate description
+            let description = "";
+            
+            // Science-Pseudoscience axis
+            if (science < -60) {
+                description += "Your path aligns with the <strong>Empirical Mystics</strong>, those who seek truth through measurable phenomena yet remain open to the arcane. ";
+            } else if (science < -20) {
+                description += "You walk the path of the <strong>Rational Seers</strong>, balancing empirical evidence with esoteric wisdom. ";
+            } else if (science < 20) {
+                description += "You stand at the <strong>Veiled Crossroads</strong>, neither fully embracing nor rejecting the mystical dimensions of typology. ";
+            } else if (science < 60) {
+                description += "Your spirit resonates with the <strong>Intuitive Diviners</strong>, those who trust the unseen patterns of personality. ";
+            } else {
+                description += "You are among the <strong>Arcane Visionaries</strong>, fully immersed in the mystical aspects of typological systems. ";
+            }
+            
+            // Dogmatic-Pragmatic axis
+            if (dogmatic < -60) {
+                description += "Your approach is that of the <strong>Adaptive Wanderer</strong>, fluidly moving between systems as needed. ";
+            } else if (dogmatic < -20) {
+                description += "You follow the way of the <strong>Practical Scholar</strong>, valuing utility over rigid doctrine. ";
+            } else if (dogmatic < 20) {
+                description += "You maintain the <strong>Balanced Perspective</strong>, neither too rigid nor too flexible in your typological views. ";
+            } else if (dogmatic < 60) {
+                description += "Your path is that of the <strong>Devoted Disciple</strong>, adhering closely to established typological traditions. ";
+            } else {
+                description += "You embody the <strong>Orthodox Master</strong>, unwavering in your commitment to typological purity. ";
+            }
+            
+            // Combined analysis
+            if (science < -30 && dogmatic > 30) {
+                description += "<br><br>The stars reveal you as a <strong>Skeptical Purist</strong> - you demand empirical validation yet maintain strict interpretations, creating a unique tension in your typological practice.";
+            } else if (science > 30 && dogmatic > 30) {
+                description += "<br><br>The ancient texts name you <strong>Mystic Zealot</strong> - your fervent belief in typology's hidden truths is matched only by your rigid adherence to its principles.";
+            } else if (science > 30 && dogmatic < -30) {
+                description += "<br><br>You are known as <strong>Flexible Oracle</strong> - while deeply connected to typology's mystical aspects, you adapt its teachings fluidly to each situation.";
+            } else if (science < -30 && dogmatic < -30) {
+                description += "<br><br>The cosmos declares you <strong>Practical Analyst</strong> - skeptical of typology's mystical claims yet pragmatic in applying whatever proves useful.";
+            }
+            
+            document.getElementById('result-description').innerHTML = description;
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            
+            // Add mystical flourish
+            const compass = document.getElementById('compass');
+            compass.style.boxShadow = '0 0 40px rgba(158, 43, 43, 0.7)';
+            setTimeout(() => {
+                compass.style.boxShadow = '0 0 30px rgba(158, 43, 43, 0.4)';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
