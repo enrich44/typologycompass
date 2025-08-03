@@ -423,35 +423,35 @@
     </div>
 
     <script>
-        // All questions with their axis and scoring
-        const questions = [
-            // Science (negative) vs Pseudoscience (positive) questions
-            { text: "I trust my gut more than empirical data", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Astrology or personality types like MBTI often reveal hidden truths", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Typology is irrelevant and has no practical use", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "I feel more connected to ancient wisdom than modern science", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Typology can be used in solving mental problems", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "I use typology to assume people personality and core essence", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "I dont care what experts say, typology is scientific", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "People that are evil and i dont like have specific placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "It is rude to type someone in enneagram, as you are assuming someones 'trauma'", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "Empirical psychology is too shallow to explain people the way typology can", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "If I can predict someone's behavior through typology, it proves it works", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Typology is mostly self-projection, not science", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "I base my typing on energy, not behavior", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Typology should be used when attacking someone personally", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "If i we're a judge i would use someone's typology system to judge them", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "I date,or make friends based on their placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "If a theory can't be tested or falsified, it isn't scientific", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "Extraordinary claims require extraordinary evidence", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "Typology is only for fun", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "People that take typology in serious are losers", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "Typology lacks standardized definitions, making it unreliable as science", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "If it helps people, that makes it valid.", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Only BIG 5 is a valid scientific system", axis: "science", direction: -1, weights: [2, 1, 0, -1, -2] },
-            { text: "I wish everyone knew typology so we could type eachother", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "Judging people based on their typology makes sense", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
-            { text: "I feel disgusted by some people placements", axis: "science", direction: 1, weights: [-2, -1, 0, 1, 2] },
+    // All questions with their axis and scoring
+    const questions = [
+        // Science (negative) vs Pseudoscience (positive) questions
+        { text: "I trust my gut more than empirical data", axis: "science", direction: 1 },
+        { text: "Astrology or personality types like MBTI often reveal hidden truths", axis: "science", direction: 1 },
+        { text: "Typology is irrelevant and has no practical use", axis: "science", direction: -1 },
+        { text: "I feel more connected to ancient wisdom than modern science", axis: "science", direction: 1 },
+        { text: "Typology can be used in solving mental problems", axis: "science", direction: 1 },
+        { text: "I use typology to assume people personality and core essence", axis: "science", direction: 1 },
+        { text: "I dont care what experts say, typology is scientific", axis: "science", direction: 1 },
+        { text: "People that are evil and i dont like have specific placements", axis: "science", direction: 1 },
+        { text: "It is rude to type someone in enneagram, as you are assuming someones 'trauma'", axis: "science", direction: -1 },
+        { text: "Empirical psychology is too shallow to explain people the way typology can", axis: "science", direction: 1 },
+        { text: "If I can predict someone's behavior through typology, it proves it works", axis: "science", direction: 1 },
+        { text: "Typology is mostly self-projection, not science", axis: "science", direction: -1 },
+        { text: "I base my typing on energy, not behavior", axis: "science", direction: 1 },
+        { text: "Typology should be used when attacking someone personally", axis: "science", direction: 1 },
+        { text: "If i we're a judge i would use someone's typology system to judge them", axis: "science", direction: 1 },
+        { text: "I date,or make friends based on their placements", axis: "science", direction: 1 },
+        { text: "If a theory can't be tested or falsified, it isn't scientific", axis: "science", direction: -1 },
+        { text: "Extraordinary claims require extraordinary evidence", axis: "science", direction: -1 },
+        { text: "Typology is only for fun", axis: "science", direction: -1 },
+        { text: "People that take typology in serious are losers", axis: "science", direction: -1 },
+        { text: "Typology lacks standardized definitions, making it unreliable as science", axis: "science", direction: -1 },
+        { text: "If it helps people, that makes it valid.", axis: "science", direction: 1 },
+        { text: "Only BIG 5 is a valid scientific system", axis: "science", direction: -1 },
+        { text: "I wish everyone knew typology so we could type eachother", axis: "science", direction: 1 },
+        { text: "Judging people based on their typology makes sense", axis: "science", direction: 1 },
+        { text: "I feel disgusted by some people placements", axis: "science", direction: 1 }];
             
             // Dogmatic (positive) vs Pragmatic (negative) questions
             { text: "Contradictions do not exist", axis: "dogmatic", direction: -1, weights: [2, 1, 0, -1, -2] },
@@ -603,46 +603,6 @@
             // Update position text
             document.getElementById('position-text').textContent = 
                 `Science-Pseudoscience: ${science.toFixed(1)}, Dogmatic-Pragmatic: ${dogmatic.toFixed(1)}`;
-            
-            // Generate description
-            let description = "";
-            
-            // Science-Pseudoscience axis
-            if (science < -60) {
-                description += "Your path aligns with the <strong>Empirical Mystics</strong>, those who seek truth through measurable phenomena yet remain open to the arcane. ";
-            } else if (science < -20) {
-                description += "You walk the path of the <strong>Rational Seers</strong>, balancing empirical evidence with esoteric wisdom. ";
-            } else if (science < 20) {
-                description += "You stand at the <strong>Veiled Crossroads</strong>, neither fully embracing nor rejecting the mystical dimensions of typology. ";
-            } else if (science < 60) {
-                description += "Your spirit resonates with the <strong>Intuitive Diviners</strong>, those who trust the unseen patterns of personality. ";
-            } else {
-                description += "You are among the <strong>Arcane Visionaries</strong>, fully immersed in the mystical aspects of typological systems. ";
-            }
-            
-            // Dogmatic-Pragmatic axis
-            if (dogmatic < -60) {
-                description += "Your approach is that of the <strong>Adaptive Wanderer</strong>, fluidly moving between systems as needed. ";
-            } else if (dogmatic < -20) {
-                description += "You follow the way of the <strong>Practical Scholar</strong>, valuing utility over rigid doctrine. ";
-            } else if (dogmatic < 20) {
-                description += "You maintain the <strong>Balanced Perspective</strong>, neither too rigid nor too flexible in your typological views. ";
-            } else if (dogmatic < 60) {
-                description += "Your path is that of the <strong>Devoted Disciple</strong>, adhering closely to established typological traditions. ";
-            } else {
-                description += "You embody the <strong>Orthodox Master</strong>, unwavering in your commitment to typological purity. ";
-            }
-            
-            // Combined analysis
-            if (science < -30 && dogmatic > 30) {
-                description += "<br><br>The stars reveal you as a <strong>Skeptical Purist</strong> - you demand empirical validation yet maintain strict interpretations, creating a unique tension in your typological practice.";
-            } else if (science > 30 && dogmatic > 30) {
-                description += "<br><br>The ancient texts name you <strong>Mystic Zealot</strong> - your fervent belief in typology's hidden truths is matched only by your rigid adherence to its principles.";
-            } else if (science > 30 && dogmatic < -30) {
-                description += "<br><br>You are known as <strong>Flexible Oracle</strong> - while deeply connected to typology's mystical aspects, you adapt its teachings fluidly to each situation.";
-            } else if (science < -30 && dogmatic < -30) {
-                description += "<br><br>The cosmos declares you <strong>Practical Analyst</strong> - skeptical of typology's mystical claims yet pragmatic in applying whatever proves useful.";
-            }
             
             document.getElementById('result-description').innerHTML = description;
             
