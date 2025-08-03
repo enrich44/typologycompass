@@ -585,79 +585,64 @@
         }
 
         function showResults(science, dogmatic) {
-            // Normalize to compass coordinates (0-400px)
-            const compassWidth = 400;
-            const compassHeight = 400;
-            
-            // Convert scores to pixels (0-400 range)
-            // Science: -100 (left) to 100 (right)
-            // Dogmatic: -100 (bottom) to 100 (top)
-            const xPos = ((science + 100) / 200) * compassWidth;
-            const yPos = compassHeight - ((dogmatic + 100) / 200) * compassHeight;
-            
-            // Move the point with animation
-            const point = document.getElementById('point');
-            point.style.left = `${xPos}px`;
-            point.style.top = `${yPos}px`;
-            
-            // Update position text
-            document.getElementById('position-text').textContent = 
-                `Science-Pseudoscience: ${science.toFixed(1)}, Dogmatic-Pragmatic: ${dogmatic.toFixed(1)}`;
-            
-            // Generate description
-            let description = "";
-            
-            // Science-Pseudoscience axis
-            if (science < -60) {
-                description += "Congrats on having a IQ of 50. ";
-            } else if (science < -20) {
-                description += "OK? ";
-            } else if (science < 20) {
-                description += "I assume you are new to typology,honest condoleances!. ";
-            } else if (science < 60) {
-                description += "You are smart ";
-            } else {
-                description += "Congrats on having a IQ of 5million. ";
-            }
-            
-            // Dogmatic-Pragmatic axis
-            if (dogmatic < -60) {
-                description += "ENTP 6w7 SLE ";
-            } else if (dogmatic < -20) {
-                description += "Cool ";
-            } else if (dogmatic < 20) {
-                description += "You maintain the <strong>Balanced Perspective</strong>, neither too rigid nor too flexible in your typological views. ";
-            } else if (dogmatic < 60) {
-                description += "Shut the fuck up. ";
-            } else {
-                description += "I already know you are annoying af ";
-            }
-            
-            // Combined analysis
-            if (science < -30 && dogmatic > 30) {
-                description += "<br><br>Fuck HTML";
-            } else if (science > 30 && dogmatic > 30) {
-                description += "<br><br>Your smart for being scientific,but cmon bro typology aint that dogmatic";
-            } else if (science > 30 && dogmatic < -30) {
-                description += "<br><br>A little confession...i hated scripting this shit.";
-            } else if (science < -30 && dogmatic < -30) {
-                description += "<br><br>Bla bla bla....";
-            }
-            
-            document.getElementById('result-description').innerHTML = description;
-            
-            // Show results
-            document.getElementById('results').style.display = 'block';
-            
-            // Scroll to results
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-            
-            // Add mystical flourish
-            const compass = document.getElementById('compass');
-            compass.style.boxShadow = '0 0 40px rgba(158, 43, 43, 0.7)';
-            setTimeout(() => {
-                compass.style.boxShadow = '0 0 30px rgba(158, 43, 43, 0.4)';
-            }, 1000);
+    const exaggerationFactor = 2.5;
+
+    // Clamp and exaggerate
+    const exaggeratedScience = Math.max(-100, Math.min(100, science * exaggerationFactor));
+    const exaggeratedDogmatic = Math.max(-100, Math.min(100, dogmatic * exaggerationFactor));
+
+    const compassWidth = 400;
+    const compassHeight = 400;
+
+    // Convert scores to pixels
+    const xPos = ((exaggeratedScience + 100) / 200) * compassWidth;
+    const yPos = compassHeight - ((exaggeratedDogmatic + 100) / 200) * compassHeight;
+
+    // Move the point
+    const point = document.getElementById('point');
+    point.style.left = `${xPos}px`;
+    point.style.top = `${yPos}px`;
+
+    // Update coordinate display
+    document.getElementById('position-text').textContent =
+        `Science-Pseudoscience: ${science.toFixed(1)}, Dogmatic-Pragmatic: ${dogmatic.toFixed(1)}`;
+
+    // Generate description
+    let description = "";
+
+    if (science < -60) description += "Congrats on having a IQ of 50. ";
+    else if (science < -20) description += "OK? ";
+    else if (science < 20) description += "I assume you are new to typology,honest condoleances!. ";
+    else if (science < 60) description += "You are smart ";
+    else description += "Congrats on having a IQ of 5million. ";
+
+    if (dogmatic < -60) description += "ENTP 6w7 SLE ";
+    else if (dogmatic < -20) description += "Cool ";
+    else if (dogmatic < 20) description += "You maintain the <strong>Balanced Perspective</strong>, neither too rigid nor too flexible in your typological views. ";
+    else if (dogmatic < 60) description += "Shut the fuck up. ";
+    else description += "I already know you are annoying af ";
+
+    if (science < -30 && dogmatic > 30) {
+        description += "<br><br>Fuck HTML";
+    } else if (science > 30 && dogmatic > 30) {
+        description += "<br><br>Your smart for being scientific,but cmon bro typology aint that dogmatic";
+    } else if (science > 30 && dogmatic < -30) {
+        description += "<br><br>A little confession...i hated scripting this shit.";
+    } else if (science < -30 && dogmatic < -30) {
+        description += "<br><br>Bla bla bla....";
+    }
+
+    document.getElementById('result-description').innerHTML = description;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+    const compass = document.getElementById('compass');
+    compass.style.boxShadow = '0 0 40px rgba(158, 43, 43, 0.7)';
+    setTimeout(() => {
+        compass.style.boxShadow = '0 0 30px rgba(158, 43, 43, 0.4)';
+    }, 1000);
+}
+
         }
     </script>
 </body>
